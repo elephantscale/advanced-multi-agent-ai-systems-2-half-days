@@ -1,0 +1,49 @@
+2024-01-27T10:15:00 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:15:05 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:15:10 CRITICAL service_api [HealthCheck] Health check failed: database unreachable
+2024-01-27T10:15:15 ERROR service_payment [TransactionProcessor] Failed to process payment: ConnectionTimeout after 5000ms
+2024-01-27T10:15:20 WARN service_auth [SessionManager] Session creation slow: 2500ms (threshold: 500ms)
+2024-01-27T10:15:25 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:15:30 INFO service_gateway [LoadBalancer] Backend server 192.168.1.10 marked unhealthy
+2024-01-27T10:15:35 ERROR service_api [RequestHandler] NullPointerException at com.example.api.UserController.getUser(UserController.java:45)
+2024-01-27T10:15:40 WARN service_cache [RedisClient] Cache miss rate elevated: 40% (normal: 5%)
+2024-01-27T10:15:45 ERROR service_payment [TransactionProcessor] OutOfMemoryError: Java heap space
+2024-01-27T10:15:50 CRITICAL service_payment [HealthCheck] Service health degraded: memory usage 95%
+2024-01-27T10:15:55 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:16:00 WARN service_gateway [RateLimiter] Rate limit exceeded for client 203.0.113.42: 1000 req/min
+2024-01-27T10:16:05 ERROR service_notification [EmailSender] SMTP connection timeout: mail.example.com:587
+2024-01-27T10:16:10 INFO service_gateway [LoadBalancer] Backend server 192.168.1.11 marked unhealthy
+2024-01-27T10:16:15 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:16:20 CRITICAL service_api [CircuitBreaker] Circuit breaker OPEN for database connections
+2024-01-27T10:16:25 ERROR service_payment [TransactionProcessor] Failed to process payment: ServiceUnavailable
+2024-01-27T10:16:30 WARN service_auth [TokenValidator] JWT validation slow: 1800ms (threshold: 100ms)
+2024-01-27T10:16:35 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:16:40 INFO service_monitoring [AlertManager] Alert triggered: DatabaseConnectionPoolExhausted
+2024-01-27T10:16:45 ERROR service_report [ReportGenerator] NullPointerException in generatePDF(): null data source
+2024-01-27T10:16:50 WARN service_cache [RedisClient] Connection pool size increased to 50 (from 20)
+2024-01-27T10:16:55 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:17:00 CRITICAL service_gateway [HealthCheck] 2 out of 5 backend servers unhealthy
+2024-01-27T10:17:05 ERROR service_payment [TransactionProcessor] OutOfMemoryError: Java heap space
+2024-01-27T10:17:10 WARN service_api [QueryExecutor] Slow query detected: 30245ms for SELECT * FROM orders WHERE status='pending'
+2024-01-27T10:17:15 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:17:20 INFO service_ops [AutoScaler] Scaling up: adding 2 instances due to high CPU usage
+2024-01-27T10:17:25 ERROR service_notification [EmailSender] Failed to send 15 emails: connection refused
+2024-01-27T10:17:30 WARN service_gateway [SSLHandler] SSL certificate expires in 7 days: api.example.com
+2024-01-27T10:17:35 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:17:40 CRITICAL service_storage [DiskMonitor] Disk usage critical: 98% on /var/log
+2024-01-27T10:17:45 ERROR service_payment [TransactionProcessor] OutOfMemoryError: Java heap space
+2024-01-27T10:17:50 INFO service_api [ConnectionPool] Attempting to increase pool size from 50 to 100
+2024-01-27T10:17:55 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:18:00 WARN service_auth [SessionManager] Session cleanup slow: 5000ms (threshold: 1000ms)
+2024-01-27T10:18:05 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:18:10 INFO service_gateway [LoadBalancer] Backend server 192.168.1.10 recovered and marked healthy
+2024-01-27T10:18:15 ERROR service_payment [TransactionProcessor] Failed to process payment: DatabaseException
+2024-01-27T10:18:20 CRITICAL service_api [HealthCheck] Service degraded: 1500 users affected
+2024-01-27T10:18:25 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:18:30 WARN service_cache [RedisClient] Cache eviction rate high: 100 keys/sec
+2024-01-27T10:18:35 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:18:40 INFO service_ops [Deployment] Rolling back deployment: version 2.5.1 -> 2.5.0
+2024-01-27T10:18:45 ERROR service_payment [TransactionProcessor] OutOfMemoryError: Java heap space
+2024-01-27T10:18:50 WARN service_api [QueryExecutor] Query plan changed: missing index on orders.status
+2024-01-27T10:18:55 ERROR service_api [RequestHandler] Database connection failed: java.sql.SQLException: Cannot get a connection, pool error Timeout waiting for idle object
+2024-01-27T10:19:00 CRITICAL service_api [CircuitBreaker] Circuit breaker remains OPEN: 50 consecutive failures
