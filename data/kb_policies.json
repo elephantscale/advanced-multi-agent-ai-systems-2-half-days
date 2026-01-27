@@ -1,0 +1,198 @@
+{
+  "sla": {
+    "P0": {
+      "response_time_minutes": 15,
+      "resolution_time_hours": 4,
+      "escalation_required": true,
+      "notification_channels": ["pagerduty", "slack", "email"],
+      "on_call_required": true
+    },
+    "P1": {
+      "response_time_minutes": 30,
+      "resolution_time_hours": 8,
+      "escalation_required": true,
+      "notification_channels": ["slack", "email"],
+      "on_call_required": true
+    },
+    "P2": {
+      "response_time_minutes": 120,
+      "resolution_time_hours": 24,
+      "escalation_required": false,
+      "notification_channels": ["email"],
+      "on_call_required": false
+    },
+    "P3": {
+      "response_time_minutes": 480,
+      "resolution_time_hours": 72,
+      "escalation_required": false,
+      "notification_channels": ["email"],
+      "on_call_required": false
+    },
+    "P4": {
+      "response_time_minutes": 1440,
+      "resolution_time_hours": 168,
+      "escalation_required": false,
+      "notification_channels": ["email"],
+      "on_call_required": false
+    }
+  },
+  "routing": {
+    "Database": {
+      "primary_team": "Database Team",
+      "backup_team": "Infrastructure Team",
+      "escalation_path": ["Database Lead", "Engineering Manager", "VP Engineering"],
+      "expertise": ["MySQL", "PostgreSQL", "MongoDB", "Redis"],
+      "availability": "24/7"
+    },
+    "Network": {
+      "primary_team": "Network Operations",
+      "backup_team": "Infrastructure Team",
+      "escalation_path": ["Network Lead", "Operations Manager", "VP Engineering"],
+      "expertise": ["Load Balancers", "Firewalls", "VPN", "CDN"],
+      "availability": "24/7"
+    },
+    "Application": {
+      "primary_team": "Application Support",
+      "backup_team": "Development Team",
+      "escalation_path": ["App Support Lead", "Engineering Manager", "VP Engineering"],
+      "expertise": ["Java", "Python", "Node.js", "Microservices"],
+      "availability": "Business Hours + On-Call"
+    },
+    "Infrastructure": {
+      "primary_team": "Infrastructure Team",
+      "backup_team": "DevOps Team",
+      "escalation_path": ["Infrastructure Lead", "Operations Manager", "VP Engineering"],
+      "expertise": ["Kubernetes", "AWS", "Docker", "Terraform"],
+      "availability": "24/7"
+    },
+    "Security": {
+      "primary_team": "Security Team",
+      "backup_team": "Infrastructure Team",
+      "escalation_path": ["Security Lead", "CISO", "CTO"],
+      "expertise": ["Penetration Testing", "Compliance", "IAM", "Encryption"],
+      "availability": "24/7"
+    }
+  },
+  "escalation": {
+    "triggers": {
+      "severity_based": {
+        "P0": "immediate",
+        "P1": "within_30_minutes",
+        "P2": "if_unresolved_4_hours",
+        "P3": "if_unresolved_24_hours",
+        "P4": "if_unresolved_72_hours"
+      },
+      "impact_based": {
+        "affected_users_threshold": 1000,
+        "revenue_impact_threshold": 10000,
+        "data_breach": "immediate"
+      },
+      "sla_breach": {
+        "response_time_exceeded": "escalate_to_manager",
+        "resolution_time_exceeded": "escalate_to_director"
+      }
+    },
+    "escalation_levels": [
+      {
+        "level": 1,
+        "role": "Team Lead",
+        "notification_method": "slack",
+        "response_required": true
+      },
+      {
+        "level": 2,
+        "role": "Engineering Manager",
+        "notification_method": "pagerduty",
+        "response_required": true
+      },
+      {
+        "level": 3,
+        "role": "Director of Engineering",
+        "notification_method": "phone",
+        "response_required": true
+      },
+      {
+        "level": 4,
+        "role": "VP Engineering",
+        "notification_method": "phone",
+        "response_required": true
+      }
+    ]
+  },
+  "automation_rules": {
+    "auto_assign": {
+      "enabled": true,
+      "rules": [
+        {
+          "condition": "category == 'Database' AND severity IN ['P0', 'P1']",
+          "action": "assign_to_database_oncall"
+        },
+        {
+          "condition": "category == 'Security'",
+          "action": "assign_to_security_team_immediately"
+        },
+        {
+          "condition": "affected_users > 1000",
+          "action": "escalate_to_manager"
+        }
+      ]
+    },
+    "auto_close": {
+      "enabled": true,
+      "rules": [
+        {
+          "condition": "severity == 'P4' AND status == 'resolved' AND age_days > 7",
+          "action": "close_incident"
+        },
+        {
+          "condition": "status == 'waiting_on_reporter' AND age_days > 14",
+          "action": "close_incident_no_response"
+        }
+      ]
+    },
+    "deduplication": {
+      "enabled": true,
+      "similarity_threshold": 0.85,
+      "time_window_hours": 24,
+      "action": "link_to_parent_incident"
+    }
+  },
+  "compliance": {
+    "data_retention": {
+      "incident_records": "7_years",
+      "audit_logs": "7_years",
+      "customer_data": "as_per_gdpr"
+    },
+    "required_fields": [
+      "incident_id",
+      "title",
+      "description",
+      "severity",
+      "category",
+      "reported_by",
+      "timestamp"
+    ],
+    "approval_required": {
+      "production_changes": true,
+      "data_access": true,
+      "escalations": false
+    }
+  },
+  "notification_templates": {
+    "P0_alert": {
+      "subject": "[P0 CRITICAL] {title}",
+      "body": "Critical incident detected. Immediate action required.\n\nIncident: {incident_id}\nTitle: {title}\nAffected Users: {affected_users}\nAssigned Team: {assigned_team}\n\nPlease join war room: {war_room_link}",
+      "channels": ["pagerduty", "slack", "email", "sms"]
+    },
+    "P1_alert": {
+      "subject": "[P1 HIGH] {title}",
+      "body": "High priority incident detected.\n\nIncident: {incident_id}\nTitle: {title}\nSLA: {sla_hours} hours\nAssigned Team: {assigned_team}",
+      "channels": ["slack", "email"]
+    },
+    "escalation": {
+      "subject": "[ESCALATION] {title}",
+      "body": "Incident escalated to {escalation_level}.\n\nIncident: {incident_id}\nReason: {escalation_reason}\nOriginal Assignment: {original_team}\nNew Assignment: {escalated_to}",
+      "channels": ["email", "slack"]
+    }
+  }
+}
