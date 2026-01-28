@@ -42,3 +42,4 @@ Thumbs.db
 *.log
 notebooks/traces_day1.jsonl
 notebooks/traces_day2.jsonl
+.env
