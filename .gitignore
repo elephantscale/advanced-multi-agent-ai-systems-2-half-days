@@ -1,5 +1,5 @@
 # Environment variables (NEVER commit API keys)
-.env
+.venv
 
 # Python
 __pycache__/
@@ -40,3 +40,5 @@ Thumbs.db
 
 # Logs
 *.log
+notebooks/traces_day1.jsonl
+notebooks/traces_day2.jsonl
