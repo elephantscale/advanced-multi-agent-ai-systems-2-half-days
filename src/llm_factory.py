@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 try:
     from langchain_core.language_models.base import BaseLanguageModel
+    from langchain_core.language_models.chat_models import BaseChatModel
     from langchain_core.messages import BaseMessage, AIMessage, HumanMessage, SystemMessage
     from langchain_core.outputs import ChatGeneration, ChatResult, LLMResult
     from langchain_openai import ChatOpenAI
@@ -16,7 +17,7 @@ except ImportError:
     BaseLanguageModel = object
 
 
-class MockLLM(BaseLanguageModel):
+class MockLLM(BaseChatModel):
     """
     LangChain-compatible MockLLM that runs without API keys.
     Provides deterministic or probabilistic responses for testing.
