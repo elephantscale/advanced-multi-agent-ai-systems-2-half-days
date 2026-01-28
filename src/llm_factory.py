@@ -146,12 +146,15 @@ class MockLLM(BaseChatModel):
         similarity = 60 + (seed % 40)
         is_dup = similarity > 80
         
+        duplicate_of = f'"INC-{10000 + (seed % 1000)}"' if is_dup else "null"
+        recommendation = "Link to existing incident" if is_dup else "Create new incident"
+        
         return f'''{{
   "is_duplicate": {str(is_dup).lower()},
-  "duplicate_of": {"\"INC-" + str(10000 + (seed % 1000)) + "\"" if is_dup else "null"},
+  "duplicate_of": {duplicate_of},
   "similar_incidents": [{{"incident_id": "INC-{10000 + (seed % 1000)}", "similarity_score": {similarity / 100}, "reason": "Similar error patterns and affected services"}}],
   "confidence": {0.70 + (seed % 30) / 100},
-  "recommendation": "{'Link to existing incident' if is_dup else 'Create new incident'}"
+  "recommendation": "{recommendation}"
 }}'''
     
     def _route_response(self, prompt: str, seed: int) -> str:
